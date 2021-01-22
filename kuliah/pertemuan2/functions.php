@@ -23,3 +23,25 @@ function query($query)
 
   return $rows;
 }
+
+function tambah($data)
+{
+  // untuk mengirim data tinggal kita panggil fungsi mysqli_query,dan fungsi ini mempunyai 2 paramaeter yang pertama koneksi dan yang kedua sting query 
+  // dan untuk string querynya kita pecah aja ya ga usah digabung di parameternya "INSERT INTO" biar rapi
+  $conn = koneksi();
+
+  $nama = htmlspecialchars($data['nama']);
+  $nrp = htmlspecialchars($data['nrp']);
+  $email = htmlspecialchars($data['email']);
+  $jurusan = htmlspecialchars($data['jurusan']);
+  $gambar = htmlspecialchars($data['gambar']);
+
+  $query = "INSERT INTO 
+                  mahasiswa
+                  VALUES
+                  (null, '$nama', '$nrp', '$email', '$jurusan', '$gambar' );
+                  ";
+  mysqli_query($conn, $query);
+  echo mysqli_error($conn);
+  return mysqli_affected_rows($conn);
+}
